@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<title xmlns="http://www.w3.org/1999/html">Create observation for user {{user}}</title>
+    <h2>Create observation for user {{user}}</h2>
+    <form id="health_form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy}}
+        <button type="submit" class="btn btn-primary"> Upload</button>
+    </form>
+
+{% endblock content %}
