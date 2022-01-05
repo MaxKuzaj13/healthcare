@@ -2,11 +2,13 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import (
     DetailView,
     RedirectView,
     UpdateView,
     View,
+    ListView,
 )
 
 User = get_user_model()
@@ -22,16 +24,23 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 
 user_detail_view = UserDetailView.as_view()
 
+class UserListView(ListView):
+    model = User
 
-class UserUpdateView(LoginRequiredMixin, UpdateView):
+
+user_list_view = UserListView.as_view()
+
+
+class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     fields = [
         "name",
+        "bio",
     ]
 
     # We already imported user in the View code above,
     #   remember?
     model = User
-
+    success_message = "Profil zostalo zaktualiowane"
     # Send the User Back to Their Own Page after a
     #   successful Update
     def get_success_url(self):
@@ -62,6 +71,7 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 user_redirect_view = UserRedirectView.as_view()
+
 
 class UsersCounterView(LoginRequiredMixin, View):
     model = User

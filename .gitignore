@@ -328,3 +328,6 @@ healthcare/media/
 *.sqlite
 *.sqlite3
 
+
+healthcare/users/__pycache__/
+healthcare/users/migrations/

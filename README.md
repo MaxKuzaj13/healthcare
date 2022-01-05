@@ -174,4 +174,12 @@ export DATABASE_URL=postgres://django_health:xyz123^dd2ded@127.0.0.1:5432/healtc
 python manage.py migrate     
 python manage.py createsuperuser
 
+## Translation
+To make translation:
 
+python manage.py makemessages --locale en
+python manage.py makemessages --locale pl
+
+To use translation:
+add {% load i18n %} in files and add block {% blocktrans %} {% endblocktrans %} and in locale 
+folder add translation. On the end add command <bash> python manage.py compilemessages </bash>
