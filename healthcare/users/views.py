@@ -1,10 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import (
     DetailView,
     RedirectView,
     UpdateView,
+    View,
 )
 
 User = get_user_model()
@@ -60,3 +62,14 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 user_redirect_view = UserRedirectView.as_view()
+
+class UsersCounterView(LoginRequiredMixin, View):
+    model = User
+    template_name = "users/counter.html"
+
+    def get(self, request):
+        user_counter = self.model.objects.count()
+        return render(request, self.template_name, {"user_counter": user_counter})
+
+
+user_counter_view = UsersCounterView.as_view()
